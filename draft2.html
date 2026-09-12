@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MailPuck. Private Communication Infrastructure for High-Attention Work</title>
+<title>MailPuck Mac · Private Communication Infrastructure for High-Attention Work</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
 
   a { color: inherit; text-decoration: none; }
 
-  /* Universal Heading Standard (Strictly Unified Font, Weight, and Style) */
+  /* Unified Heading Standard across the entire site */
   h1, h2, h3, h4, h5 {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 400;
@@ -68,12 +68,19 @@
     justify-content: space-between;
   }
 
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .brand {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 21px;
     font-weight: 400;
+    color: var(--navy);
   }
 
   .brand-puck {
@@ -84,10 +91,20 @@
     border: 2px solid var(--brass);
   }
 
+  .brand-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--slate);
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
   nav.nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 26px;
     font-size: 13.5px;
     color: var(--slate);
   }
@@ -96,6 +113,85 @@
     transition: color 0.15s ease;
   }
   nav.nav-links a:hover { color: var(--navy); }
+
+  /* Products Nav Dropdown Menu */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--slate);
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .dropdown-btn:hover { color: var(--navy); }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -12px;
+    margin-top: 8px;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 12px 30px rgba(11, 31, 51, 0.08);
+    width: 250px;
+    padding: 10px;
+    display: none;
+    z-index: 150;
+  }
+
+  .dropdown:hover .dropdown-menu { display: block; }
+
+  .dropdown-item {
+    padding: 10px 12px;
+    border-radius: 4px;
+    display: block;
+    transition: background 0.15s ease;
+  }
+  .dropdown-item:hover { background: var(--bg); }
+
+  .dropdown-item-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dropdown-item-desc {
+    font-size: 11.5px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .pill-active {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    background: var(--green-badge-bg);
+    color: var(--green-badge-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  .pill-soon {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--slate);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
 
   .nav-actions {
     display: flex;
@@ -125,13 +221,11 @@
     cursor: pointer;
     transition: background 0.15s ease;
   }
-  .btn-primary:hover {
-    background: #142E4B;
-  }
+  .btn-primary:hover { background: #142E4B; }
 
-  /* Layout Sections */
+  /* Sections */
   section {
-    padding: 100px 28px;
+    padding: 96px 28px;
     border-bottom: 1px solid var(--line-subtle);
   }
 
@@ -159,19 +253,19 @@
     font-size: 17px;
     line-height: 1.7;
     color: var(--slate);
-    max-width: 680px;
+    max-width: 700px;
   }
 
   /* Hero */
   .hero {
-    padding: 90px 28px 105px;
+    padding: 85px 28px 100px;
     background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(247,247,244,1) 100%);
   }
 
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1.05fr;
-    gap: 64px;
+    gap: 60px;
     align-items: center;
   }
 
@@ -207,7 +301,7 @@
     font-size: 17px;
     line-height: 1.7;
     color: var(--slate);
-    margin-bottom: 32px;
+    margin-bottom: 30px;
     max-width: 500px;
   }
 
@@ -224,43 +318,48 @@
     color: var(--slate-light);
   }
 
-  /* Provider Banner */
-  .provider-bar {
+  /* Universal Office Email Compatibility Bar */
+  .office-compatibility {
     background: #FFFFFF;
     border: 1px solid var(--line);
     border-radius: 6px;
-    padding: 20px 24px;
+    padding: 24px 28px;
     margin-top: 50px;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
   }
 
-  .provider-bar-text {
-    font-size: 14px;
+  .compatibility-callout {
+    font-size: 14.5px;
     color: var(--navy);
+    font-weight: 500;
   }
 
-  .provider-bar-text strong {
-    font-weight: 600;
+  .compatibility-callout span {
+    display: block;
+    font-size: 12.5px;
+    color: var(--slate);
+    font-weight: 400;
+    margin-top: 3px;
   }
 
-  .provider-pills {
+  .office-tags {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
-  .provider-pill {
+  .office-tag {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     background: var(--bg);
     border: 1px solid var(--line);
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: 4px;
-    color: var(--slate);
+    color: var(--navy);
   }
 
   /* Terminal Preview */
@@ -425,7 +524,7 @@
     cursor: pointer;
   }
 
-  /* Cognitive Flow */
+  /* Cognitive sequence section */
   .problem-section {
     background: #FFFFFF;
   }
@@ -480,7 +579,67 @@
     background: #FDFBF8;
   }
 
-  /* 2-Column Blocks */
+  /* Explicit System Requirements Section */
+  .requirements-section {
+    background: #FAF8F5;
+  }
+
+  .requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .req-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 32px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .req-card.primary {
+    border-color: var(--brass-border);
+  }
+
+  .req-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--brass);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .req-card h4 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .req-card ul {
+    list-style: none;
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .req-card ul li {
+    margin-bottom: 10px;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .req-card ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--brass);
+  }
+
+  /* 2-Column Philosophy & Principles */
   .grid-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -542,7 +701,7 @@
     margin-top: 12px;
   }
 
-  /* 3-Column Principles */
+  /* Principles */
   .principles-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -570,97 +729,6 @@
   }
 
   .principle-card p {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--slate);
-  }
-
-  /* System Requirements Section */
-  .requirements-section {
-    background: #FAF8F5;
-  }
-
-  .requirements-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .req-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 32px 28px;
-  }
-
-  .req-card.highlight {
-    border-color: var(--brass-border);
-  }
-
-  .req-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--brass);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .req-card h4 {
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-
-  .req-card ul {
-    list-style: none;
-    font-size: 14px;
-    color: var(--slate);
-    line-height: 1.65;
-  }
-
-  .req-card ul li {
-    margin-bottom: 10px;
-    padding-left: 18px;
-    position: relative;
-  }
-
-  .req-card ul li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--brass);
-  }
-
-  /* Audience */
-  .audience-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .audience-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 34px 28px;
-  }
-
-  .audience-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--slate);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .audience-card h4 {
-    font-size: 21px;
-    margin-bottom: 12px;
-  }
-
-  .audience-card p {
     font-size: 14px;
     line-height: 1.65;
     color: var(--slate);
@@ -748,7 +816,6 @@
   }
 
   .tier-price {
-    font-family: 'Fraunces', Georgia, serif;
     font-size: 36px;
     font-weight: 400;
     color: var(--navy);
@@ -832,7 +899,7 @@
 
   /* Footer */
   footer {
-    padding: 44px 28px;
+    padding: 48px 28px;
     background: #081624;
     color: #64748B;
     font-size: 12px;
@@ -851,6 +918,7 @@
   .footer-legal {
     display: flex;
     gap: 20px;
+    align-items: center;
   }
 
   /* Modal */
@@ -961,7 +1029,9 @@
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     .grid-2col, .requirements-grid { grid-template-columns: 1fr; }
     .flow-grid { grid-template-columns: repeat(2, 1fr); }
-    .principles-grid, .audience-grid, .pricing-grid, .trust-grid { grid-template-columns: 1fr; }
+    .principles-grid, .pricing-grid, .trust-grid { grid-template-columns: 1fr; }
+    .office-compatibility { grid-template-columns: 1fr; gap: 16px; }
+    .office-tags { justify-content: flex-start; }
     nav.nav-links { display: none; }
   }
 </style>
@@ -971,18 +1041,52 @@
 <!-- Header Navigation -->
 <header>
   <div class="nav-inner">
-    <div class="brand">
-      <span class="brand-puck"></span>
-      MailPuck
+    <div class="brand-group">
+      <a href="#" class="brand">
+        <span class="brand-puck"></span>
+        MailPuck
+      </a>
+      <span class="brand-badge">Mac</span>
     </div>
+
     <nav class="nav-links">
-      <a href="#problem">Why it exists</a>
-      <a href="#experience">How it works</a>
+      <!-- Products Dropdown -->
+      <div class="dropdown">
+        <button class="dropdown-btn">
+          Products <span style="font-size:10px;">▾</span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="#requirements" class="dropdown-item">
+            <div class="dropdown-item-title">
+              MailPuck Mac
+              <span class="pill-active">Available</span>
+            </div>
+            <div class="dropdown-item-desc">Desktop app for Apple's native mailing app</div>
+          </a>
+          <div class="dropdown-item" style="opacity: 0.75; cursor: default;">
+            <div class="dropdown-item-title">
+              MailPuck Teams
+              <span class="pill-soon">Coming Soon</span>
+            </div>
+            <div class="dropdown-item-desc">Centralized governance and team keys</div>
+          </div>
+          <div class="dropdown-item" style="opacity: 0.75; cursor: default;">
+            <div class="dropdown-item-title">
+              Windows & Web
+              <span class="pill-soon">Roadmap</span>
+            </div>
+            <div class="dropdown-item-desc">Cross platform client support</div>
+          </div>
+        </div>
+      </div>
+
       <a href="#compatibility">Compatibility</a>
+      <a href="#experience">How it works</a>
       <a href="#requirements">Requirements</a>
       <a href="#trust">Trust</a>
       <a href="#pricing">Pricing</a>
     </nav>
+
     <div class="nav-actions">
       <button class="btn-link" onclick="openModal('gate')">Beta Sign in</button>
       <button class="btn-primary" onclick="openModal('request')">Request early access</button>
@@ -996,11 +1100,11 @@
     <div class="hero-left">
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
-        Private Desktop Beta. Built for macOS
+        MailPuck Mac · a T3R product
       </div>
       <h1 class="hero-h1">The quietest hour in your working day.</h1>
       <p class="hero-p">
-        Email takes more than time. It takes decisions, context switches, and the focus your core work requires. MailPuck prepares considered drafts for the messages that need an answer. Your day starts with your mind clear.
+        Email takes more than time. It takes decisions, context switches, and the focus your core work requires. MailPuck Mac prepares considered drafts for the messages that need an answer. Your day starts with your mind clear.
       </p>
       <div class="hero-ctas">
         <button class="btn-primary" onclick="openModal('request')">Request early access</button>
@@ -1016,7 +1120,7 @@
           <div class="window-dots">
             <span></span><span></span><span></span>
           </div>
-          <div class="terminal-title">Draft Review. Apple native mail app</div>
+          <div class="terminal-title">Draft Review · Apple's native mailing app</div>
           <div class="status-pill">Ready for review</div>
         </div>
         <div class="terminal-content">
@@ -1033,8 +1137,8 @@
           </div>
 
           <div class="terminal-divider">
-            <div class="divider-tag">MailPuck Prepared Draft</div>
-            <div class="tone-indicator">Context: Governance. Courteous and direct</div>
+            <div class="divider-tag">MailPuck Mac Prepared Draft</div>
+            <div class="tone-indicator">Context: Governance · Courteous and direct</div>
           </div>
 
           <div class="email-draft">
@@ -1054,27 +1158,30 @@
     </div>
   </div>
 
-  <!-- Office Provider Compatibility Bar -->
+  <!-- Office Email Providers Compatibility Strip -->
   <div class="container" id="compatibility">
-    <div class="provider-bar">
-      <div class="provider-bar-text">
-        <strong>Works with all office email providers.</strong> Connect your existing accounts through Apple's native mail app.
+    <div class="office-compatibility">
+      <div class="compatibility-callout">
+        Works with all office email apps.
+        <span>Connect any work or personal inbox through Apple's native mailing app.</span>
       </div>
-      <div class="provider-pills">
-        <span class="provider-pill">Google Workspace & Gmail</span>
-        <span class="provider-pill">Microsoft Outlook & 365</span>
-        <span class="provider-pill">Microsoft Exchange</span>
-        <span class="provider-pill">iCloud Mail</span>
-        <span class="provider-pill">Custom IMAP</span>
+      <div class="office-tags">
+        <span class="office-tag">Google Workspace</span>
+        <span class="office-tag">Gmail</span>
+        <span class="office-tag">Microsoft 365</span>
+        <span class="office-tag">Microsoft Outlook</span>
+        <span class="office-tag">Exchange</span>
+        <span class="office-tag">iCloud</span>
+        <span class="office-tag">Custom IMAP</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- The Problem -->
+<!-- The Cognitive Problem -->
 <section class="problem-section" id="problem">
   <div class="container">
-    <div class="section-tag">The Cognitive Burden</div>
+    <div class="section-tag">The Hidden Cognitive Cost</div>
     <h2 class="section-h2">Email is not only administrative.<br>It is cognitive.</h2>
     <p class="section-lead">
       Writing a short email requires far more than typing. You recall past conversations, gauge tone, protect relationships, clarify commitments, and decide what to leave unsaid. That hidden mental effort accumulates.
@@ -1112,7 +1219,58 @@
   </div>
 </section>
 
-<!-- Mission & Vision -->
+<!-- Requirements Section -->
+<section class="requirements-section" id="requirements">
+  <div class="container">
+    <div class="section-tag">System Scope & Readiness</div>
+    <h2 class="section-h2">Requirements for MailPuck Mac.</h2>
+    <p class="section-lead">
+      MailPuck Mac is built for speed, direct local execution, and total data containment. We state our current operating requirements plainly.
+    </p>
+
+    <div class="requirements-grid">
+      <!-- Requirement 1: Hardware & OS -->
+      <div class="req-card primary">
+        <div>
+          <div class="req-tag">Current Release · Mac Only</div>
+          <h4>Apple Hardware</h4>
+          <ul>
+            <li><strong>Supported computers:</strong> MacBook Pro, MacBook Air, iMac, Mac mini, Mac Studio, and Mac Pro.</li>
+            <li><strong>Operating system:</strong> macOS Sonoma, macOS Ventura, or macOS Sequoia.</li>
+            <li><strong>Desktop native:</strong> Runs quietly as a discreet menu bar tool with near-zero battery draw.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Requirement 2: Email Client & Inboxes -->
+      <div class="req-card">
+        <div>
+          <div class="req-tag">Mailing Client & Providers</div>
+          <h4>Client Integration</h4>
+          <ul>
+            <li><strong>Client requirement:</strong> Uses Apple's native mailing app built into your Mac.</li>
+            <li><strong>All office email apps:</strong> If your inbox connects to Apple's native mailing app, MailPuck Mac works with it. Full support for Google Workspace, Gmail, Microsoft 365, Outlook, Exchange, and iCloud.</li>
+            <li><strong>Draft only safety:</strong> MailPuck Mac never sends an email. Drafts wait safely in your drafts folder for review.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Requirement 3: BYOK Intelligence & Roadmap -->
+      <div class="req-card">
+        <div>
+          <div class="req-tag">Intelligence & Future Platforms</div>
+          <h4>BYOK Architecture</h4>
+          <ul>
+            <li><strong>Bring Your Own Key (BYOK):</strong> Connect your personal Gemini API key. Google provides a generous free tier for personal keys, keeping draft costs at zero.</li>
+            <li><strong>Coming soon:</strong> Windows desktop edition, iPhone and iPad companion apps, and native browser extensions are planned for future versions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy & Vision -->
 <section id="mission">
   <div class="container">
     <div class="section-tag">Philosophy</div>
@@ -1123,14 +1281,14 @@
           Our mission is to remove repetitive composition from the center of the working day. Your attention belongs on the work that depends on your talent, judgement, and imagination.
         </p>
         <p>
-          For a finance professional, that is the decision behind the figures. For an academic, it is research and teaching that cannot be reduced to a template. For a leader, it is the direction only you can set.
+          For a finance professional, that is the decision behind the numbers. For an academic, it is research and teaching that cannot be reduced to a template. For a leader, it is the direction only you can provide.
         </p>
       </div>
 
       <div class="mission-card">
         <h3>From an hour of email to fifteen minutes of review.</h3>
         <p>
-          We believe email should require deliberate review, not hours of blank page drafting. MailPuck prepares the drafts quietly in the background so you can focus on judgement: editing, approving, or deciding not to send.
+          We believe email should require deliberate review, not hours of blank page drafting. MailPuck Mac prepares drafts quietly in the background so you can focus on judgement: editing, approving, or deciding not to send.
         </p>
         <div class="comparison-block">
           <div class="comp-row">
@@ -1148,13 +1306,13 @@
   </div>
 </section>
 
-<!-- How Experience Feels -->
+<!-- Product Principles -->
 <section id="experience" style="background:#FFFFFF;">
   <div class="container">
     <div class="section-tag">Product Principles</div>
     <h2 class="section-h2">Arrive at the inbox with the first thought already made.</h2>
     <p class="section-lead">
-      When a message genuinely requires your response, a draft is ready for you to consider. You refine it, alter it, discard it, or write something new. MailPuck never replaces judgement. It gives that moment a better starting point.
+      When a message genuinely requires your response, a draft is ready for you to consider. You refine it, alter it, discard it, or write something new. MailPuck Mac gives that moment a better starting point.
     </p>
 
     <div class="principles-grid">
@@ -1171,69 +1329,7 @@
       <div class="principle-card">
         <div class="principle-num">PRINCIPLE 03</div>
         <h4>Controlled, not careless</h4>
-        <p>Designed for professionals who handle sensitive communications. If a message needs no response, MailPuck remains silent.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Clear System Requirements Section -->
-<section class="requirements-section" id="requirements">
-  <div class="container">
-    <div class="section-tag">Current Scope</div>
-    <h2 class="section-h2">Clear, honest requirements.</h2>
-    <p class="section-lead">
-      MailPuck is focused software designed for desktop speed and data containment. We state our current compatibility plainly.
-    </p>
-
-    <div class="requirements-grid">
-      <div class="req-card highlight">
-        <div class="req-tag">System & Mail Client</div>
-        <h4>Hardware and Software</h4>
-        <ul>
-          <li><strong>Requires a Mac:</strong> Runs natively on MacBook, iMac, and Mac desktop computers running a recent version of macOS.</li>
-          <li><strong>Uses Apple's native mail app:</strong> Integrates directly with the Mail app built into your Mac.</li>
-          <li><strong>Works with all office email providers:</strong> If your account connects to Apple's native mail app (Gmail, Google Workspace, Microsoft Outlook, Microsoft 365, Exchange, or iCloud), MailPuck drafts for it.</li>
-        </ul>
-      </div>
-
-      <div class="req-card">
-        <div class="req-tag">Setup & Intelligence</div>
-        <h4>Model Key & Platforms</h4>
-        <ul>
-          <li><strong>Bring Your Own Key (BYOK):</strong> Connect your personal Gemini API key. Google provides a free usage tier, keeping draft costs at zero or pennies.</li>
-          <li><strong>Draft only operation:</strong> MailPuck never sends mail autonomously. Every draft waits safely in your drafts folder.</li>
-          <li><strong>Not yet available on other platforms:</strong> Windows, iPhone, iPad, and web mail versions are not supported today. They are planned for future versions.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Audience -->
-<section id="audience">
-  <div class="container">
-    <div class="section-tag">Audience</div>
-    <h2 class="section-h2">For people whose time has consequences.</h2>
-    <p class="section-lead">
-      Built for environments where correspondence carries responsibility and personal attention is finite.
-    </p>
-
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-tag">Finance and Investment</div>
-        <h4>Analysis and Relationships</h4>
-        <p>Protect the time behind investment decisions, client relationships, and rigorous analysis from daily administrative churn.</p>
-      </div>
-      <div class="audience-card">
-        <div class="audience-tag">Higher Education and Research</div>
-        <h4>Scholarship and Teaching</h4>
-        <p>Keep administrative correspondence from displacing core research, course design, and creative intellectual work.</p>
-      </div>
-      <div class="audience-card">
-        <div class="audience-tag">Leadership and Operators</div>
-        <h4>Clear Direction</h4>
-        <p>Review communications with full context and control, ending your day without a heavy backlog of unanswered messages.</p>
+        <p>Designed for professionals who handle sensitive communications. If a message needs no response, MailPuck Mac remains silent.</p>
       </div>
     </div>
   </div>
@@ -1245,13 +1341,13 @@
     <div class="section-tag">Security and Integrity</div>
     <h2 class="section-h2">Built for review, not blind delegation.</h2>
     <p class="section-lead">
-      MailPuck helps you review communications with intention. It does not send on your behalf. The final decision remains visible, editable, and yours.
+      MailPuck Mac helps you review communications with intention. It does not send on your behalf. The final decision remains visible, editable, and yours.
     </p>
 
     <div class="trust-grid">
       <div class="trust-item">
         <h4>Draft Only Architecture</h4>
-        <p>MailPuck writes standard native drafts inside Apple's native mail app. It has no code, interface mechanism, or permission to send email.</p>
+        <p>MailPuck Mac writes standard native drafts inside Apple's native mailing app. It has no code, interface mechanism, or permission to send email.</p>
         <div class="trust-meta">Zero autonomous outbound communication</div>
       </div>
       <div class="trust-item">
@@ -1261,7 +1357,7 @@
       </div>
       <div class="trust-item">
         <h4>Local Desktop Execution</h4>
-        <p>MailPuck runs as a lightweight Mac menu bar app. No intermediary cloud server stores or indexes your mailbox threads.</p>
+        <p>MailPuck Mac runs as a lightweight Mac menu bar app. No intermediary cloud server stores or indexes your mailbox threads.</p>
         <div class="trust-meta">Local device data containment</div>
       </div>
       <div class="trust-item">
@@ -1283,19 +1379,19 @@
     </p>
 
     <div class="pricing-grid">
-      <!-- 21 Day Trial -->
+      <!-- Evaluation -->
       <div class="pricing-card">
         <div>
           <div class="tier-name">Evaluation</div>
           <div class="tier-price">21 Days</div>
           <div class="tier-cadence">Complimentary access</div>
           <div class="tier-limits">Unlimited draft generation</div>
-          <div class="tier-desc">Test MailPuck across your daily work routine before selecting a subscription plan.</div>
+          <div class="tier-desc">Test MailPuck Mac across your daily work routine before selecting a subscription plan.</div>
         </div>
         <button class="btn-primary" style="width:100%;" onclick="openModal('request')">Start evaluation</button>
       </div>
 
-      <!-- Standard Tier -->
+      <!-- Standard -->
       <div class="pricing-card featured">
         <div class="pricing-badge">Standard</div>
         <div>
@@ -1308,7 +1404,7 @@
         <button class="btn-primary" style="width:100%;" onclick="openModal('request')">Request early access</button>
       </div>
 
-      <!-- Unlimited Tier -->
+      <!-- Unlimited -->
       <div class="pricing-card">
         <div>
           <div class="tier-name">Continuous</div>
@@ -1332,7 +1428,7 @@
   <div class="container">
     <h2>Your inbox is full of messages.<br>Your attention should not be.</h2>
     <p>
-      Join the private early access group, or enter your beta code to download the current macOS build.
+      Join the private early access group, or enter your beta access code to download the current macOS build.
     </p>
     <div class="closing-ctas">
       <button class="btn-white" onclick="openModal('request')">Request early access</button>
@@ -1345,12 +1441,13 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <strong>MailPuck</strong>. Private communication infrastructure for high-attention work
+      <strong>MailPuck</strong> · by T3R
+      <span style="display:block; margin-top:4px; color:#94A3B8;">Private communication infrastructure for high-attention work</span>
     </div>
     <div class="footer-legal">
       <a href="#trust">Security & Trust</a>
       <a href="mailto:access@mailpuck.com">Contact</a>
-      <span>A T3R Product. mailpuck.com</span>
+      <span>mailpuck / mailpuck.com</span>
     </div>
   </div>
 </footer>
@@ -1369,7 +1466,7 @@
     </div>
 
     <div class="modal-body">
-      <!-- Request Access Tab -->
+      <!-- Request Access Tab (Configured for Notion Pipeline) -->
       <div id="viewRequest">
         <form onsubmit="handleRequestSubmit(event)">
           <div class="form-group">
@@ -1393,11 +1490,11 @@
           </div>
           <div class="form-group">
             <label for="reqTime">What would you rather spend your inbox time doing?</label>
-            <textarea id="reqTime" rows="2" placeholder="Research, syndicate analysis, writing..."></textarea>
+            <textarea id="reqTime" rows="2" placeholder="Research, teaching, writing, analysis..."></textarea>
           </div>
           <button type="submit" class="btn-primary" style="width:100%; padding: 11px;">Submit request</button>
           <div class="modal-footer-note">
-            Applications are reviewed weekly. Requires a Mac running Apple's native mail app.
+            Applications are reviewed weekly. Requires a Mac running Apple's native mailing app.
           </div>
         </form>
       </div>
@@ -1421,7 +1518,7 @@
           <p style="font-size: 14px; color: var(--slate); margin-bottom: 22px; line-height: 1.5;">
             Welcome to the private beta. This build is shared with trusted testers before public release.
           </p>
-          <a href="#" id="appDownloadBtn" class="btn-primary" style="display: inline-block; padding: 12px 26px; text-decoration: none;">Download MailPuck for Mac</a>
+          <a href="#" id="appDownloadBtn" class="btn-primary" style="display: inline-block; padding: 12px 26px; text-decoration: none;">Download MailPuck Mac</a>
           <div class="modal-footer-note" style="margin-top: 20px; text-align: left; border-top: 1px solid var(--line); padding-top: 12px;">
             macOS may indicate this early build is ad-hoc signed. Right-click the app icon and choose Open on first launch.
           </div>
