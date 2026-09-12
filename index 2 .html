@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MailPuck Mac. Private Communication Infrastructure for High-Attention Work</title>
+<style>
+  :root {
+    --void: #060B14;
+    --navy: #0B1F33;
+    --paper: #F7F7F4;
+    --paper-warm: #FAF8F5;
+    --ink: #111827;
+    --slate: #536273;
+    --slate-light: #8A99A8;
+    --mist: #CBD5E1;
+    --brass: #B28A52;
+    --brass-bright: #E9D9B8;
+    --brass-border: #D8C3A3;
+    --line: #E5E7EB;
+    --line-dark: rgba(255, 255, 255, 0.10);
+    --green-badge-bg: #DDE9E2;
+    --green-badge-text: #204B35;
+    --max-w: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  h1, h2, h3, h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+  /* ============ NAV ============ */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 20px 0;
+  }
+
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
+  .brand-puck {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--brass);
+  }
+
+  nav.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 14px;
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
+  nav.nav-links a { opacity: 0.82; transition: opacity 0.15s ease; }
+  nav.nav-links a:hover { opacity: 1; }
+
+  .products-dropdown { position: relative; }
+  .products-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: none; border: none; font-family: inherit;
+    font-size: 14px; color: #fff; opacity: 0.82; cursor: pointer;
+  }
+  .products-btn:hover { opacity: 1; }
+
+  .products-menu {
+    position: absolute; top: 100%; left: -14px; margin-top: 16px;
+    background: #fff; border-radius: 8px;
+    box-shadow: 0 20px 44px rgba(6, 11, 20, 0.18);
+    width: 270px; padding: 8px; display: none; z-index: 250;
+    mix-blend-mode: normal;
+  }
+  .products-dropdown:hover .products-menu { display: block; }
+
+  .products-item { padding: 12px 13px; border-radius: 6px; display: block; }
+  .products-item:hover { background: var(--paper); }
+  .products-item-head { font-size: 13.5px; font-weight: 700; color: var(--navy); display: flex; align-items: center; justify-content: space-between; }
+  .products-item-sub { font-size: 11.5px; color: var(--slate); margin-top: 3px; line-height: 1.4; }
+  .tag-now { font-size: 10px; background: var(--green-badge-bg); color: var(--green-badge-text); padding: 2px 6px; border-radius: 3px; font-weight: 700; }
+  .tag-next { font-size: 10px; background: var(--paper); border: 1px solid var(--line); color: var(--slate); padding: 2px 6px; border-radius: 3px; }
+
+  .nav-actions { display: flex; align-items: center; gap: 20px; }
+  .btn-link-white { font-size: 13.5px; color: #fff; background: none; border: none; cursor: pointer; font-family: inherit; opacity: 0.85; mix-blend-mode: difference; }
+  .btn-link-white:hover { opacity: 1; }
+
+  .btn-pill {
+    background: #fff; color: var(--void);
+    padding: 9px 18px; border-radius: 999px;
+    font-size: 13.5px; font-weight: 700; border: none; cursor: pointer;
+  }
+
+  /* ============ FULL-BLEED STATEMENT SECTIONS ============ */
+  .stage {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 28px 90px;
+    background: var(--void);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .stage-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .stage-hero .stage-backdrop {
+    background:
+      radial-gradient(ellipse 900px 600px at 22% 18%, rgba(178, 138, 82, 0.30), transparent 60%),
+      radial-gradient(ellipse 700px 700px at 82% 78%, rgba(178, 138, 82, 0.14), transparent 65%),
+      linear-gradient(180deg, #081020 0%, #060B14 55%, #04070C 100%);
+  }
+
+  .stage-cognitive .stage-backdrop {
+    background:
+      radial-gradient(ellipse 800px 500px at 78% 10%, rgba(178, 138, 82, 0.18), transparent 60%),
+      linear-gradient(200deg, #0A1622 0%, #060B14 70%);
+  }
+
+  .stage-trust .stage-backdrop {
+    background:
+      radial-gradient(ellipse 700px 700px at 15% 85%, rgba(178, 138, 82, 0.16), transparent 60%),
+      linear-gradient(160deg, #071019 0%, #060B14 70%);
+  }
+
+  .stage-grain::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .stage-content { position: relative; z-index: 1; max-width: 860px; }
+
+  .stage-kicker {
+    font-size: 13.5px;
+    color: var(--brass-bright);
+    margin-bottom: 22px;
+  }
+
+  .stage-h1 {
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    margin-bottom: 26px;
+  }
+
+  .stage h2.stage-h1 { font-size: clamp(34px, 5.4vw, 68px); }
+
+  .stage-p {
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.6;
+    color: var(--mist);
+    max-width: 620px;
+    margin: 0 auto 40px;
+  }
+
+  .stage-ctas {
+    display: flex; align-items: center; justify-content: center;
+    gap: 26px; flex-wrap: wrap;
+  }
+
+  .learn-more {
+    font-size: 14px; color: #fff; opacity: 0.78;
+    display: inline-flex; align-items: center; gap: 6px;
+    cursor: pointer; background: none; border: none; font-family: inherit;
+  }
+  .learn-more:hover { opacity: 1; }
+  .learn-more svg { width: 12px; height: 12px; transition: transform 0.2s ease; }
+  .learn-more:hover svg { transform: translateY(2px); }
+
+  /* ============ PRODUCT DEMO STAGE (terminal as the hero image) ============ */
+  .stage-demo {
+    background: var(--void);
+    padding-top: 150px;
+  }
+
+  .stage-demo .stage-backdrop {
+    background:
+      radial-gradient(ellipse 1000px 500px at 50% 0%, rgba(178, 138, 82, 0.20), transparent 60%),
+      linear-gradient(180deg, #060B14 0%, #050A12 100%);
+  }
+
+  .stage-demo .stage-content { max-width: 980px; }
+
+  .terminal-wrapper { position: relative; margin-top: 56px; text-align: left; }
+
+  .terminal {
+    background: #0E141E;
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    color: #E2E8F0;
+  }
+
+  .terminal-topbar {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line-dark);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .window-dots { display: flex; gap: 6px; }
+  .window-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .terminal-title { font-size: 12px; color: #94A3B8; font-weight: 700; }
+  .status-pill {
+    font-size: 11px; padding: 3px 9px; border-radius: 4px;
+    background: rgba(178, 138, 82, 0.15); color: var(--brass-bright);
+    border: 1px solid rgba(178, 138, 82, 0.3); font-weight: 700;
+  }
+
+  .terminal-content { padding: 28px; }
+  .email-incoming { padding-bottom: 18px; border-bottom: 1px solid var(--line-dark); margin-bottom: 20px; }
+  .email-meta { display: grid; grid-template-columns: 65px 1fr; gap: 6px; font-size: 12.5px; margin-bottom: 12px; }
+  .email-meta .label { color: #64748B; font-weight: 700; font-size: 11px; }
+  .email-meta .val { color: #CBD5E1; }
+  .email-snip {
+    font-size: 14px; line-height: 1.6; color: #94A3B8;
+    background: rgba(255,255,255,0.03); padding: 14px 16px; border-radius: 6px;
+    border-left: 2px solid rgba(255,255,255,0.15);
+  }
+
+  .terminal-divider { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .divider-tag { font-size: 12px; font-weight: 700; color: var(--brass-border); }
+  .tone-indicator { font-size: 11.5px; color: #64748B; }
+
+  .email-draft {
+    font-size: 14.5px; line-height: 1.65; color: #F8FAFC;
+    background: rgba(178, 138, 82, 0.05); border: 1px solid rgba(178, 138, 82, 0.2);
+    border-radius: 8px; padding: 18px 20px; margin-bottom: 22px;
+  }
+  .email-draft p { margin-bottom: 11px; }
+  .email-draft p:last-child { margin-bottom: 0; }
+
+  .terminal-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--line-dark); }
+  .btn-terminal-accept {
+    background: #182C43; color: #fff; border: 1px solid rgba(178, 138, 82, 0.5);
+    padding: 10px 20px; border-radius: 6px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  }
+  .terminal-safety { font-size: 11.5px; color: #64748B; font-weight: 700; }
+
+  /* ============ DETAIL SECTIONS (the quiet "learn more" reveal) ============ */
+  .detail {
+    background: var(--paper);
+    padding: 90px 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .detail-warm { background: var(--paper-warm); }
+  .detail-white { background: #fff; }
+
+  .detail-heading {
+    font-size: clamp(24px, 2.6vw, 32px);
+    color: var(--navy);
+    margin-bottom: 14px;
+    max-width: 640px;
+  }
+
+  .detail-lead {
+    font-size: 16px; color: var(--slate); max-width: 640px; line-height: 1.65;
+    margin-bottom: 46px;
+  }
+
+  /* six-step sequence: numbering kept because it genuinely is one */
+  .flow-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .flow-node { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 10px; text-align: center; }
+  .flow-node.final { border-color: var(--brass-border); background: #FDFBF8; }
+  .flow-step-num { font-size: 11px; font-weight: 700; color: var(--brass); margin-bottom: 5px; }
+  .flow-title { font-size: 13.5px; font-weight: 700; color: var(--navy); }
+
+  .principles-grid, .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .principle-card, .trust-item {
+    border: 1px solid var(--line); border-radius: 8px; padding: 30px 26px; background: #fff;
+  }
+  .principle-card h4, .trust-item h4 { font-size: 18px; color: var(--navy); margin-bottom: 10px; }
+  .principle-card p, .trust-item p { font-size: 14px; line-height: 1.65; color: var(--slate); margin-bottom: 10px; }
+  .trust-meta { font-size: 11.5px; font-weight: 700; color: var(--slate-light); }
+
+  .requirements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .req-card { border: 1px solid var(--line); border-radius: 8px; padding: 28px 24px; background: #fff; }
+  .req-card.primary { border-color: var(--brass-border); }
+  .req-card h4 { font-size: 18px; color: var(--navy); margin-bottom: 12px; }
+  .req-card ul { list-style: none; font-size: 13.5px; color: var(--slate); line-height: 1.65; }
+  .req-card ul li { margin-bottom: 10px; padding-left: 16px; position: relative; }
+  .req-card ul li::before { content: '\2022'; position: absolute; left: 0; color: var(--brass); font-weight: 700; }
+
+  .office-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 30px; }
+  .office-tag { font-size: 12.5px; font-weight: 700; background: #fff; border: 1px solid var(--line); padding: 7px 13px; border-radius: 5px; color: var(--navy); }
+
+  /* ============ PRICING ============ */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 46px; }
+  .pricing-card { border: 1px solid var(--line); border-radius: 8px; padding: 32px 26px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+  .pricing-card.featured { border-color: var(--navy); border-width: 2px; }
+  .tier-name { font-size: 12px; font-weight: 700; color: var(--slate); margin-bottom: 12px; }
+  .tier-price { font-size: 32px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .tier-cadence { font-size: 12.5px; color: var(--slate-light); margin-bottom: 20px; }
+  .tier-limits { padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 13.5px; color: var(--navy); font-weight: 700; margin-bottom: 20px; }
+  .tier-desc { font-size: 13px; color: var(--slate); line-height: 1.6; margin-bottom: 26px; min-height: 56px; }
+  .btn-dark { background: var(--navy); color: #fff; padding: 11px 18px; border-radius: 6px; font-size: 13.5px; font-weight: 700; border: none; cursor: pointer; width: 100%; }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    text-align: center; padding: 130px 28px;
+    background: var(--void); color: #fff; position: relative; overflow: hidden;
+  }
+  .closing::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 800px 500px at 50% 100%, rgba(178, 138, 82, 0.20), transparent 60%);
+  }
+  .closing-inner { position: relative; z-index: 1; }
+  .closing h2 { font-size: clamp(30px, 4.4vw, 50px); line-height: 1.15; margin-bottom: 18px; }
+  .closing p { font-size: 16px; color: var(--mist); max-width: 560px; margin: 0 auto 34px; line-height: 1.65; }
+  .closing-ctas { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  .btn-hollow-white { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 12px 22px; border-radius: 999px; font-size: 13.5px; cursor: pointer; }
+
+  footer { padding: 44px 28px; background: #04070C; color: #64748B; font-size: 12px; }
+  .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-legal { display: flex; gap: 20px; align-items: center; }
+  .footer-legal a:hover { color: #fff; }
+
+  /* ============ MODALS (unchanged behaviour, restyled to match) ============ */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(6, 11, 20, 0.7); backdrop-filter: blur(6px);
+    z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: #fff; width: 100%; max-width: 480px; border-radius: 10px; overflow: hidden; }
+  .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .modal-header h3 { font-size: 18px; color: var(--navy); }
+  .modal-close { background: none; border: none; font-size: 20px; color: var(--slate); cursor: pointer; }
+  .modal-tabs { display: flex; border-bottom: 1px solid var(--line); background: var(--paper-warm); }
+  .modal-tab { flex: 1; padding: 12px; font-size: 12px; font-weight: 700; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; color: var(--slate); }
+  .modal-tab.active { color: var(--navy); border-bottom-color: var(--navy); background: #fff; }
+  .modal-body { padding: 26px 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 12px; color: var(--slate); margin-bottom: 6px; font-weight: 700; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 12px; font-size: 13.5px; border: 1px solid var(--line);
+    border-radius: 5px; font-family: inherit; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy); }
+  .modal-footer-note { font-size: 11px; color: var(--slate-light); margin-top: 12px; line-height: 1.5; }
+
+  @media (max-width: 980px) {
+    .principles-grid, .trust-grid, .requirements-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .flow-grid { grid-template-columns: repeat(2, 1fr); }
+    nav.nav-links { display: none; }
+    .stage { padding: 120px 22px 70px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="#" class="brand"><span class="brand-puck"></span>MailPuck</a>
+    <nav class="nav-links">
+      <div class="products-dropdown">
+        <button class="products-btn">Products <span style="font-size:10px;">&#9662;</span></button>
+        <div class="products-menu">
+          <a href="#requirements" class="products-item">
+            <div class="products-item-head">MailPuck Mac <span class="tag-now">Available</span></div>
+            <div class="products-item-sub">Desktop application for Apple's native mailing app</div>
+          </a>
+          <div class="products-item" style="opacity:0.7; cursor:default;">
+            <div class="products-item-head">MailPuck Teams <span class="tag-next">In development</span></div>
+            <div class="products-item-sub">Shared team rules and organisation controls</div>
+          </div>
+          <div class="products-item" style="opacity:0.7; cursor:default;">
+            <div class="products-item-head">Windows &amp; Web <span class="tag-next">Roadmap</span></div>
+            <div class="products-item-sub">Expanded multi-platform support</div>
+          </div>
+        </div>
+      </div>
+      <a href="#experience">How it works</a>
+      <a href="#trust">Trust</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-link-white" onclick="openModal('gate')">Beta sign in</button>
+      <button class="btn-pill" onclick="openModal('request')">Request early access</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO STAGE ============ -->
+<section class="stage stage-hero stage-grain">
+  <div class="stage-backdrop"></div>
+  <div class="stage-content">
+    <div class="stage-kicker">MailPuck Mac, a T3R product</div>
+    <h1 class="stage-h1">The quietest hour<br>in your working day.</h1>
+    <p class="stage-p">Email takes more than time. It takes decisions, context switches, and the focus your real work requires. MailPuck prepares considered drafts for the messages that need an answer, so your day starts with your mind clear.</p>
+    <div class="stage-ctas">
+      <button class="btn-pill" onclick="openModal('request')">Request early access</button>
+      <a href="#experience" class="learn-more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COGNITIVE COST STAGE ============ -->
+<section class="stage stage-cognitive stage-grain">
+  <div class="stage-backdrop"></div>
+  <div class="stage-content">
+    <h2 class="stage-h1">Email is not administrative.<br>It is cognitive.</h2>
+    <p class="stage-p">Writing a short reply requires far more than typing. You recall past conversations, gauge tone, protect relationships, clarify commitments, and decide what to leave unsaid. That hidden effort accumulates, message after message.</p>
+    <button class="learn-more" onclick="document.getElementById('flowDetail').scrollIntoView({behavior:'smooth'})">See the sequence <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>
+  </div>
+</section>
+
+<div class="detail" id="flowDetail">
+  <div class="container">
+    <h3 class="detail-heading">The mental sequence behind every quick reply.</h3>
+    <p class="detail-lead">Six steps happen before a single word is typed, whether the message takes ten seconds or ten minutes.</p>
+    <div class="flow-grid">
+      <div class="flow-node"><div class="flow-step-num">1</div><div class="flow-title">New message</div></div>
+      <div class="flow-node"><div class="flow-step-num">2</div><div class="flow-title">Context recall</div></div>
+      <div class="flow-node"><div class="flow-step-num">3</div><div class="flow-title">Judgement</div></div>
+      <div class="flow-node"><div class="flow-step-num">4</div><div class="flow-title">Tone calibration</div></div>
+      <div class="flow-node"><div class="flow-step-num">5</div><div class="flow-title">Commitment</div></div>
+      <div class="flow-node final"><div class="flow-step-num">6</div><div class="flow-title">A quick reply</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRODUCT DEMO STAGE ============ -->
+<section class="stage stage-demo stage-grain" id="experience">
+  <div class="stage-backdrop"></div>
+  <div class="stage-content">
+    <h2 class="stage-h1">Arrive with the first thought already made.</h2>
+    <p class="stage-p">When a message genuinely needs your response, a draft is waiting for you to consider. Refine it, rewrite it, or discard it. Nothing leaves your computer without your approval.</p>
+
+    <div class="terminal-wrapper">
+      <div class="terminal">
+        <div class="terminal-topbar">
+          <div class="window-dots"><span></span><span></span><span></span></div>
+          <div class="terminal-title">Draft review, Apple's native mailing app</div>
+          <div class="status-pill">Ready for review</div>
+        </div>
+        <div class="terminal-content">
+          <div class="email-incoming">
+            <div class="email-meta">
+              <span class="label">FROM</span><span class="val">Dr. Alistair Vance &lt;a.vance@institution.ac.uk&gt;</span>
+              <span class="label">SUBJECT</span><span class="val">External Review Panel: Confirmation of Dates</span>
+            </div>
+            <div class="email-snip">"Given the governance timeline, we need your preliminary comments by Thursday evening if the submission is to proceed before senate recess."</div>
+          </div>
+          <div class="terminal-divider">
+            <div class="divider-tag">MailPuck prepared draft</div>
+            <div class="tone-indicator">Context: governance, courteous and direct</div>
+          </div>
+          <div class="email-draft">
+            <p>Dear Alistair,</p>
+            <p>Thank you for the note. I reviewed the revised schedule. While Thursday is tight, I can deliver preliminary comments on the syndicate brief by 5:00 PM, provided we hold the broader governance discussion until Monday morning.</p>
+            <p>Let me know if this sequencing works for the panel.</p>
+          </div>
+          <div class="terminal-actions">
+            <button class="btn-terminal-accept" onclick="alert('Draft synced to the Mail app built into your Mac.')">Approve to Mail Drafts</button>
+            <span class="terminal-safety">Never auto-sent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <button class="learn-more" onclick="document.getElementById('principlesDetail').scrollIntoView({behavior:'smooth'})">How it decides what to draft <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<div class="detail detail-warm" id="principlesDetail">
+  <div class="container">
+    <h3 class="detail-heading">Prepared, considered, controlled.</h3>
+    <p class="detail-lead">Three ideas govern everything MailPuck does with your inbox.</p>
+    <div class="principles-grid">
+      <div class="principle-card">
+        <h4>Prepared, not automatic</h4>
+        <p>The work begins before your review, never before it. Nothing leaves your computer without deliberate approval.</p>
+      </div>
+      <div class="principle-card">
+        <h4>Considered, not generic</h4>
+        <p>Each draft reflects context, relationship, and purpose, avoiding the hollow phrasing common to standard AI writing tools.</p>
+      </div>
+      <div class="principle-card">
+        <h4>Controlled, not careless</h4>
+        <p>Built for professionals who handle sensitive correspondence. If a message needs no response, MailPuck stays silent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TRUST STAGE ============ -->
+<section class="stage stage-trust stage-grain" id="trust">
+  <div class="stage-backdrop"></div>
+  <div class="stage-content">
+    <h2 class="stage-h1">Built for review,<br>not blind delegation.</h2>
+    <p class="stage-p">MailPuck helps you review communication with intention. It does not send on your behalf. The final decision stays visible, editable, and yours.</p>
+    <button class="learn-more" onclick="document.getElementById('trustDetail').scrollIntoView({behavior:'smooth'})">Read the architecture <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>
+  </div>
+</section>
+
+<div class="detail" id="trustDetail">
+  <div class="container">
+    <h3 class="detail-heading">Security and integrity.</h3>
+    <p class="detail-lead">Four commitments, stated plainly rather than badged.</p>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <h4>Draft-only architecture</h4>
+        <p>MailPuck writes standard native drafts inside Apple's native mailing app. It has no code, interface, or permission to send email.</p>
+        <div class="trust-meta">Zero autonomous outbound communication</div>
+      </div>
+      <div class="trust-item">
+        <h4>Direct provider key (BYOK)</h4>
+        <p>Draft requests go directly to your personal AI provider account using your key. Your data stays governed by your direct provider agreement.</p>
+        <div class="trust-meta">Direct client to API architecture</div>
+      </div>
+      <div class="trust-item">
+        <h4>Local desktop execution</h4>
+        <p>MailPuck runs as a lightweight Mac menu bar app. No intermediary cloud server stores or indexes your mailbox threads.</p>
+        <div class="trust-meta">Local device data containment</div>
+      </div>
+      <div class="trust-item">
+        <h4>Verifiable operational standards</h4>
+        <p>We do not publish unverified badges or fabricated partnerships. We publish our exact architecture so technical teams can inspect it.</p>
+        <div class="trust-meta">Transparent product roadmap</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REQUIREMENTS (kept as a quiet reference section, no dark stage needed) ============ -->
+<div class="detail detail-white" id="requirements">
+  <div class="container">
+    <h3 class="detail-heading">Requirements for MailPuck Mac.</h3>
+    <p class="detail-lead">Built for speed, direct local execution, and total data containment. Stated plainly.</p>
+    <div class="requirements-grid">
+      <div class="req-card primary">
+        <h4>Apple hardware</h4>
+        <ul>
+          <li><strong>Supported computers:</strong> MacBook Pro, MacBook Air, iMac, Mac mini, Mac Studio, and Mac Pro.</li>
+          <li><strong>Operating system:</strong> macOS Sonoma, Ventura, or Sequoia.</li>
+          <li><strong>Desktop native:</strong> runs quietly as a menu bar tool with near-zero battery draw.</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h4>Client integration</h4>
+        <ul>
+          <li><strong>Client requirement:</strong> uses Apple's native mailing app built into your Mac.</li>
+          <li><strong>All office email apps:</strong> full support for Google Workspace, Gmail, Microsoft 365, Outlook, Exchange, and iCloud.</li>
+          <li><strong>Draft-only safety:</strong> MailPuck never sends an email. Drafts wait in your drafts folder for review.</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h4>BYOK architecture</h4>
+        <ul>
+          <li><strong>Bring your own key:</strong> connect your personal Gemini API key. Google's free tier keeps draft costs near zero.</li>
+          <li><strong>Coming soon:</strong> Windows, iPhone and iPad companions, and browser extensions.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="office-tags">
+      <span class="office-tag">Google Workspace</span>
+      <span class="office-tag">Gmail</span>
+      <span class="office-tag">Microsoft 365</span>
+      <span class="office-tag">Microsoft Outlook</span>
+      <span class="office-tag">Exchange</span>
+      <span class="office-tag">iCloud</span>
+      <span class="office-tag">Custom IMAP</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRICING ============ -->
+<div class="detail detail-warm" id="pricing">
+  <div class="container">
+    <h3 class="detail-heading" style="font-size:clamp(28px, 3.2vw, 40px);">Transparent economics.</h3>
+    <p class="detail-lead">AI model usage stays with your personal provider. A MailPuck subscription supports the Mac app and its updates, nothing more.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div>
+          <div class="tier-name">Evaluation</div>
+          <div class="tier-price">21 days</div>
+          <div class="tier-cadence">Complimentary access</div>
+          <div class="tier-limits">Unlimited draft generation</div>
+          <div class="tier-desc">Test MailPuck across your daily routine before choosing a plan.</div>
+        </div>
+        <button class="btn-dark" onclick="openModal('request')">Start evaluation</button>
+      </div>
+      <div class="pricing-card featured">
+        <div>
+          <div class="tier-name">Focused review</div>
+          <div class="tier-price">&pound;1 <span style="font-size:15px; color:var(--slate); font-weight:400;">/ week</span></div>
+          <div class="tier-cadence">Billed weekly, cancel anytime</div>
+          <div class="tier-limits">Up to 100 drafts daily</div>
+          <div class="tier-desc">For professionals managing a steady volume of priority correspondence.</div>
+        </div>
+        <button class="btn-dark" onclick="openModal('request')">Request early access</button>
+      </div>
+      <div class="pricing-card">
+        <div>
+          <div class="tier-name">Continuous</div>
+          <div class="tier-price">&pound;2 <span style="font-size:15px; color:var(--slate); font-weight:400;">/ week</span></div>
+          <div class="tier-cadence">Billed weekly, cancel anytime</div>
+          <div class="tier-limits">Unlimited daily drafting</div>
+          <div class="tier-desc">Full coverage for leaders, researchers, and operators with continuous mail.</div>
+        </div>
+        <button class="btn-dark" onclick="openModal('request')">Request early access</button>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:13px; color:var(--slate); margin-top:36px;">A free tier with 20 daily drafts activates automatically after your 21-day evaluation if no plan is chosen.</p>
+  </div>
+</div>
+
+<!-- ============ CLOSING ============ -->
+<section class="closing">
+  <div class="closing-inner container">
+    <h2>Your inbox is full of messages.<br>Your attention should not be.</h2>
+    <p>Join the private early access group, or enter your beta access code to download the current macOS build.</p>
+    <div class="closing-ctas">
+      <button class="btn-pill" onclick="openModal('request')">Request early access</button>
+      <button class="btn-hollow-white" onclick="openModal('gate')">Enter beta access code</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:#fff;">MailPuck</strong>, by T3R
+      <span style="display:block; margin-top:4px;">Private communication infrastructure for high-attention work</span>
+    </div>
+    <div class="footer-legal">
+      <a href="#trust">Security &amp; trust</a>
+      <a href="mailto:access@mailpuck.com">Contact</a>
+      <span>mailpuck.com</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODALS (unchanged logic) ============ -->
+<div class="modal-overlay" id="accessModal" onclick="handleBackdropClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">Early Access</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabRequest" onclick="switchTab('request')">Request access</button>
+      <button class="modal-tab" id="tabGate" onclick="switchTab('gate')">Beta code</button>
+    </div>
+    <div class="modal-body">
+      <div id="viewRequest">
+        <form onsubmit="handleRequestSubmit(event)">
+          <div class="form-group">
+            <label for="reqEmail">Work email</label>
+            <input type="email" id="reqEmail" placeholder="name@institution.com" required>
+          </div>
+          <div class="form-group">
+            <label for="reqRole">Role and discipline</label>
+            <input type="text" id="reqRole" placeholder="Lecturer, Partner, Director" required>
+          </div>
+          <div class="form-group">
+            <label for="reqOrg">Sector or organisation</label>
+            <select id="reqOrg" required>
+              <option value="">Select sector...</option>
+              <option value="Finance and Investment">Finance and Investment</option>
+              <option value="Higher Education and Research">Higher Education and Research</option>
+              <option value="Executive and Operations">Executive and Operations</option>
+              <option value="Legal and Professional Services">Legal and Professional Services</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reqTime">What would you rather spend your inbox time doing?</label>
+            <textarea id="reqTime" rows="2" placeholder="Research, teaching, writing, analysis..."></textarea>
+          </div>
+          <button type="submit" class="btn-dark">Submit request</button>
+          <div class="modal-footer-note">Applications are reviewed weekly. Requires a Mac running Apple's native mailing app.</div>
+        </form>
+      </div>
+      <div id="viewGate" style="display:none;">
+        <div id="gateInputArea">
+          <div class="form-group">
+            <label for="gateCode">Beta access code</label>
+            <input type="text" id="gateCode" placeholder="Enter code" autocomplete="off" spellcheck="false" style="text-align:center; font-size:16px;">
+          </div>
+          <button type="button" class="btn-dark" onclick="verifyCode()">Unlock download</button>
+          <p id="gateError" style="color:#991B1B; font-size:13px; margin-top:10px; display:none; text-align:center;">That code was not recognised. Please check your invitation note.</p>
+        </div>
+        <div id="gateSuccessArea" style="display:none; text-align:center;">
+          <div style="width:44px; height:44px; border-radius:50%; background:var(--green-badge-bg); color:var(--green-badge-text); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:20px;">&#10003;</div>
+          <h4 style="font-size:20px; color:var(--navy); margin-bottom:8px;">Access verified</h4>
+          <p style="font-size:14px; color:var(--slate); margin-bottom:22px; line-height:1.5;">Welcome to the private beta. This build is shared with trusted testers before public release.</p>
+          <a href="#" id="appDownloadBtn" class="btn-dark" style="display:inline-block; text-decoration:none;">Download MailPuck Mac</a>
+          <div class="modal-footer-note" style="margin-top:20px; text-align:left; border-top:1px solid var(--line); padding-top:12px;">macOS may indicate this early build is ad-hoc signed. Right-click the app icon and choose Open on first launch.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ACCESS_CODE = "MailPuckHelper";
+  const DOWNLOAD_URL = "#";
+
+  const modal = document.getElementById('accessModal');
+  const viewRequest = document.getElementById('viewRequest');
+  const viewGate = document.getElementById('viewGate');
+  const tabRequest = document.getElementById('tabRequest');
+  const tabGate = document.getElementById('tabGate');
+  const gateCodeInput = document.getElementById('gateCode');
+  const gateError = document.getElementById('gateError');
+  const gateInputArea = document.getElementById('gateInputArea');
+  const gateSuccessArea = document.getElementById('gateSuccessArea');
+  const appDownloadBtn = document.getElementById('appDownloadBtn');
+
+  appDownloadBtn.href = DOWNLOAD_URL;
+
+  function openModal(tab) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    switchTab(tab || 'request');
+  }
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function handleBackdropClick(e) { if (e.target === modal) closeModal(); }
+
+  function switchTab(tab) {
+    if (tab === 'request') {
+      tabRequest.classList.add('active'); tabGate.classList.remove('active');
+      viewRequest.style.display = 'block'; viewGate.style.display = 'none';
+      document.getElementById('modalTitle').innerText = 'Request early access';
+    } else {
+      tabGate.classList.add('active'); tabRequest.classList.remove('active');
+      viewRequest.style.display = 'none'; viewGate.style.display = 'block';
+      document.getElementById('modalTitle').innerText = 'Beta tester sign in';
+    }
+  }
+
+  function verifyCode() {
+    const entered = gateCodeInput.value.trim().toUpperCase();
+    if (entered === ACCESS_CODE.toUpperCase()) {
+      gateError.style.display = 'none';
+      gateInputArea.style.display = 'none';
+      gateSuccessArea.style.display = 'block';
+    } else {
+      gateError.style.display = 'block';
+    }
+  }
+  gateCodeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') verifyCode(); gateError.style.display = 'none'; });
+
+  function handleRequestSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('reqEmail').value;
+    alert(`Thank you. We recorded your request for ${email}. You will receive confirmation shortly.`);
+    closeModal();
+  }
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+</script>
+
+</body>
+</html>
