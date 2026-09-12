@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MailPuck Mac · Private Communication Infrastructure for High-Attention Work</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>MailPuck Mac. Private Communication Infrastructure for High-Attention Work</title>
 <style>
   :root {
     --bg: #F7F7F4;
@@ -30,22 +27,23 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
+  /* Site-wide Arial Typography */
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
   }
 
   a { color: inherit; text-decoration: none; }
 
-  /* Unified Heading Standard across the entire site */
+  /* Uniform Arial Headings Across the Whole Site */
   h1, h2, h3, h4, h5 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
     color: var(--navy);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 
   /* Header Navigation */
@@ -53,7 +51,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(247, 247, 244, 0.94);
+    background: rgba(247, 247, 244, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line-subtle);
@@ -71,41 +69,43 @@
   .brand-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 21px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 700;
     color: var(--navy);
+    letter-spacing: -0.02em;
   }
 
   .brand-puck {
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: var(--navy);
     border: 2px solid var(--brass);
   }
 
-  .brand-badge {
-    font-family: 'IBM Plex Mono', monospace;
+  .brand-tag {
     font-size: 11px;
+    font-weight: 700;
     color: var(--slate);
     background: #FFFFFF;
     border: 1px solid var(--line);
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 3px;
+    text-transform: uppercase;
   }
 
   nav.nav-links {
     display: flex;
     align-items: center;
-    gap: 26px;
-    font-size: 13.5px;
+    gap: 24px;
+    font-size: 14px;
     color: var(--slate);
   }
 
@@ -114,82 +114,83 @@
   }
   nav.nav-links a:hover { color: var(--navy); }
 
-  /* Products Nav Dropdown Menu */
-  .dropdown {
+  /* Products Dropdown Menu */
+  .products-dropdown {
     position: relative;
     display: inline-block;
   }
 
-  .dropdown-btn {
+  .products-btn {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     background: transparent;
     border: none;
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 14px;
     color: var(--slate);
     cursor: pointer;
     padding: 4px 0;
+    font-weight: 500;
   }
-  .dropdown-btn:hover { color: var(--navy); }
+  .products-btn:hover { color: var(--navy); }
 
-  .dropdown-menu {
+  .products-menu {
     position: absolute;
     top: 100%;
     left: -12px;
-    margin-top: 8px;
+    margin-top: 10px;
     background: #FFFFFF;
     border: 1px solid var(--line);
     border-radius: 6px;
-    box-shadow: 0 12px 30px rgba(11, 31, 51, 0.08);
-    width: 250px;
-    padding: 10px;
+    box-shadow: 0 14px 34px rgba(11, 31, 51, 0.09);
+    width: 260px;
+    padding: 8px;
     display: none;
     z-index: 150;
   }
 
-  .dropdown:hover .dropdown-menu { display: block; }
+  .products-dropdown:hover .products-menu { display: block; }
 
-  .dropdown-item {
+  .products-item {
     padding: 10px 12px;
     border-radius: 4px;
     display: block;
     transition: background 0.15s ease;
   }
-  .dropdown-item:hover { background: var(--bg); }
+  .products-item:hover { background: var(--bg); }
 
-  .dropdown-item-title {
-    font-size: 13px;
-    font-weight: 500;
+  .products-item-head {
+    font-size: 13.5px;
+    font-weight: 700;
     color: var(--navy);
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .dropdown-item-desc {
+  .products-item-sub {
     font-size: 11.5px;
     color: var(--slate);
-    margin-top: 2px;
+    margin-top: 3px;
+    line-height: 1.4;
   }
 
-  .pill-active {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px;
+  .tag-now {
+    font-size: 10px;
     background: var(--green-badge-bg);
     color: var(--green-badge-text);
-    padding: 1px 6px;
+    padding: 2px 6px;
     border-radius: 2px;
+    font-weight: 700;
   }
 
-  .pill-soon {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px;
+  .tag-next {
+    font-size: 10px;
     background: var(--bg);
     border: 1px solid var(--line);
     color: var(--slate);
-    padding: 1px 6px;
+    padding: 2px 6px;
     border-radius: 2px;
   }
 
@@ -200,7 +201,7 @@
   }
 
   .btn-link {
-    font-size: 13px;
+    font-size: 13.5px;
     color: var(--slate);
     background: transparent;
     border: none;
@@ -213,10 +214,10 @@
   .btn-primary {
     background: var(--navy);
     color: #FFFFFF;
-    padding: 9px 18px;
+    padding: 10px 18px;
     border-radius: 4px;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 13.5px;
+    font-weight: 700;
     border: 1px solid var(--navy);
     cursor: pointer;
     transition: background 0.15s ease;
@@ -235,25 +236,25 @@
   }
 
   .section-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    font-weight: 700;
     color: var(--brass);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   h2.section-h2 {
-    font-size: clamp(32px, 4vw, 44px);
-    line-height: 1.18;
-    margin-bottom: 20px;
+    font-size: clamp(30px, 3.8vw, 42px);
+    line-height: 1.2;
+    margin-bottom: 18px;
   }
 
   p.section-lead {
     font-size: 17px;
-    line-height: 1.7;
+    line-height: 1.65;
     color: var(--slate);
-    max-width: 700px;
+    max-width: 720px;
   }
 
   /* Hero */
@@ -273,14 +274,14 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11.5px;
+    font-weight: 700;
     color: var(--slate);
     background: #FFFFFF;
     border: 1px solid var(--line);
-    padding: 5px 12px;
+    padding: 6px 12px;
     border-radius: 999px;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .hero-badge-dot {
@@ -291,24 +292,24 @@
   }
 
   h1.hero-h1 {
-    font-size: clamp(38px, 5vw, 56px);
-    line-height: 1.12;
+    font-size: clamp(38px, 4.8vw, 54px);
+    line-height: 1.15;
     letter-spacing: -0.02em;
     margin-bottom: 20px;
   }
 
   p.hero-p {
     font-size: 17px;
-    line-height: 1.7;
+    line-height: 1.65;
     color: var(--slate);
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     max-width: 500px;
   }
 
   .hero-ctas {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     margin-bottom: 22px;
     flex-wrap: wrap;
   }
@@ -318,7 +319,7 @@
     color: var(--slate-light);
   }
 
-  /* Universal Office Email Compatibility Bar */
+  /* Office Email Providers Banner */
   .office-compatibility {
     background: #FFFFFF;
     border: 1px solid var(--line);
@@ -332,17 +333,17 @@
   }
 
   .compatibility-callout {
-    font-size: 14.5px;
+    font-size: 15px;
     color: var(--navy);
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .compatibility-callout span {
     display: block;
-    font-size: 12.5px;
+    font-size: 13px;
     color: var(--slate);
     font-weight: 400;
-    margin-top: 3px;
+    margin-top: 4px;
   }
 
   .office-tags {
@@ -353,11 +354,11 @@
   }
 
   .office-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 700;
     background: var(--bg);
     border: 1px solid var(--line);
-    padding: 5px 11px;
+    padding: 6px 12px;
     border-radius: 4px;
     color: var(--navy);
   }
@@ -408,19 +409,19 @@
   }
 
   .terminal-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
+    font-size: 12px;
     color: #94A3B8;
+    font-weight: 700;
   }
 
   .status-pill {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11px;
     padding: 3px 8px;
     border-radius: 4px;
     background: rgba(178, 138, 82, 0.15);
     color: #E9D9B8;
     border: 1px solid rgba(178, 138, 82, 0.3);
+    font-weight: 700;
   }
 
   .terminal-content {
@@ -428,7 +429,7 @@
   }
 
   .email-incoming {
-    padding-bottom: 18px;
+    padding-bottom: 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     margin-bottom: 18px;
   }
@@ -443,7 +444,7 @@
 
   .email-meta .label {
     color: #64748B;
-    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
     font-size: 11px;
   }
 
@@ -469,8 +470,8 @@
   }
 
   .divider-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 700;
     color: var(--brass-border);
     display: flex;
     align-items: center;
@@ -486,8 +487,7 @@
   }
 
   .tone-indicator {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11px;
     color: #64748B;
   }
 
@@ -520,11 +520,11 @@
     padding: 9px 18px;
     border-radius: 4px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
   }
 
-  /* Cognitive sequence section */
+  /* Cognitive Flow Sequence */
   .problem-section {
     background: #FFFFFF;
   }
@@ -538,8 +538,8 @@
   }
 
   .flow-label {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     color: var(--slate);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -562,15 +562,15 @@
   }
 
   .flow-step-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
+    font-size: 10.5px;
+    font-weight: 700;
     color: var(--brass);
     margin-bottom: 4px;
   }
 
   .flow-title {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 13.5px;
+    font-weight: 700;
     color: var(--navy);
   }
 
@@ -579,7 +579,7 @@
     background: #FDFBF8;
   }
 
-  /* Explicit System Requirements Section */
+  /* System Requirements Section */
   .requirements-section {
     background: #FAF8F5;
   }
@@ -606,8 +606,8 @@
   }
 
   .req-tag {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     color: var(--brass);
     margin-bottom: 12px;
     text-transform: uppercase;
@@ -637,9 +637,10 @@
     position: absolute;
     left: 0;
     color: var(--brass);
+    font-weight: 700;
   }
 
-  /* 2-Column Philosophy & Principles */
+  /* 2-Column Philosophy */
   .grid-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -655,7 +656,7 @@
   }
 
   .mission-card h3 {
-    font-size: 26px;
+    font-size: 24px;
     margin-bottom: 16px;
   }
 
@@ -687,9 +688,8 @@
   }
 
   .comp-tag {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .comp-tag.before { color: #8C4040; }
@@ -717,14 +717,14 @@
   }
 
   .principle-num {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     color: var(--brass);
     margin-bottom: 14px;
   }
 
   .principle-card h4 {
-    font-size: 20px;
+    font-size: 19px;
     margin-bottom: 12px;
   }
 
@@ -754,7 +754,7 @@
   }
 
   .trust-item h4 {
-    font-size: 20px;
+    font-size: 19px;
     margin-bottom: 10px;
   }
 
@@ -766,8 +766,8 @@
   }
 
   .trust-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 700;
     color: var(--slate-light);
   }
 
@@ -800,24 +800,24 @@
     left: 24px;
     background: var(--navy);
     color: #FFFFFF;
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
+    font-weight: 700;
     padding: 2px 8px;
     border-radius: 2px;
     text-transform: uppercase;
   }
 
   .tier-name {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11.5px;
+    font-weight: 700;
     color: var(--slate);
     text-transform: uppercase;
     margin-bottom: 12px;
   }
 
   .tier-price {
-    font-size: 36px;
-    font-weight: 400;
+    font-size: 34px;
+    font-weight: 700;
     color: var(--navy);
     margin-bottom: 4px;
   }
@@ -834,7 +834,7 @@
     border-bottom: 1px solid var(--line);
     font-size: 13.5px;
     color: var(--navy);
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 20px;
   }
 
@@ -855,7 +855,7 @@
   }
 
   .closing-banner h2 {
-    font-size: clamp(32px, 4.2vw, 48px);
+    font-size: clamp(32px, 4.2vw, 46px);
     line-height: 1.2;
     margin-bottom: 18px;
     color: #FFFFFF;
@@ -882,7 +882,7 @@
     padding: 12px 24px;
     border-radius: 4px;
     font-size: 13.5px;
-    font-weight: 500;
+    font-weight: 700;
     border: none;
     cursor: pointer;
   }
@@ -921,7 +921,7 @@
     align-items: center;
   }
 
-  /* Modal */
+  /* Modals */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -953,7 +953,7 @@
     justify-content: space-between;
   }
 
-  .modal-header h3 { font-size: 19px; }
+  .modal-header h3 { font-size: 18px; }
 
   .modal-close {
     background: none;
@@ -973,7 +973,7 @@
     flex: 1;
     padding: 11px;
     font-size: 12px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -985,7 +985,6 @@
     color: var(--navy);
     border-bottom-color: var(--navy);
     background: #FFFFFF;
-    font-weight: 500;
   }
 
   .modal-body { padding: 24px; }
@@ -997,7 +996,7 @@
     font-size: 12px;
     color: var(--slate);
     margin-bottom: 6px;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .form-group input,
@@ -1038,7 +1037,7 @@
 </head>
 <body>
 
-<!-- Header Navigation -->
+<!-- Header Navigation with Products Tab -->
 <header>
   <div class="nav-inner">
     <div class="brand-group">
@@ -1046,36 +1045,36 @@
         <span class="brand-puck"></span>
         MailPuck
       </a>
-      <span class="brand-badge">Mac</span>
+      <span class="brand-tag">Mac</span>
     </div>
 
     <nav class="nav-links">
-      <!-- Products Dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-btn">
+      <!-- Products Dropdown Tab -->
+      <div class="products-dropdown">
+        <button class="products-btn">
           Products <span style="font-size:10px;">▾</span>
         </button>
-        <div class="dropdown-menu">
-          <a href="#requirements" class="dropdown-item">
-            <div class="dropdown-item-title">
+        <div class="products-menu">
+          <a href="#requirements" class="products-item">
+            <div class="products-item-head">
               MailPuck Mac
-              <span class="pill-active">Available</span>
+              <span class="tag-now">Available</span>
             </div>
-            <div class="dropdown-item-desc">Desktop app for Apple's native mailing app</div>
+            <div class="products-item-sub">Desktop application for Apple's native mailing app</div>
           </a>
-          <div class="dropdown-item" style="opacity: 0.75; cursor: default;">
-            <div class="dropdown-item-title">
+          <div class="products-item" style="opacity: 0.75; cursor: default;">
+            <div class="products-item-head">
               MailPuck Teams
-              <span class="pill-soon">Coming Soon</span>
+              <span class="tag-next">In Development</span>
             </div>
-            <div class="dropdown-item-desc">Centralized governance and team keys</div>
+            <div class="products-item-sub">Shared team rules and organization controls</div>
           </div>
-          <div class="dropdown-item" style="opacity: 0.75; cursor: default;">
-            <div class="dropdown-item-title">
+          <div class="products-item" style="opacity: 0.75; cursor: default;">
+            <div class="products-item-head">
               Windows & Web
-              <span class="pill-soon">Roadmap</span>
+              <span class="tag-next">Roadmap</span>
             </div>
-            <div class="dropdown-item-desc">Cross platform client support</div>
+            <div class="products-item-sub">Expanded multi-platform support</div>
           </div>
         </div>
       </div>
@@ -1151,19 +1150,19 @@
             <button class="btn-terminal-accept" onclick="alert('Draft synced to the Mail app built into your Mac.')">
               Approve to Mail Drafts
             </button>
-            <span style="font-size: 11px; color: #64748B; font-family: 'IBM Plex Mono', monospace;">Never auto-sent</span>
+            <span style="font-size: 11px; color: #64748B; font-weight: 700;">Never auto-sent</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Office Email Providers Compatibility Strip -->
+  <!-- Office Email Apps Compatibility Strip -->
   <div class="container" id="compatibility">
     <div class="office-compatibility">
       <div class="compatibility-callout">
         Works with all office email apps.
-        <span>Connect any work or personal inbox through Apple's native mailing app.</span>
+        <span>Connect any corporate, institutional, or personal account through Apple's native mailing app.</span>
       </div>
       <div class="office-tags">
         <span class="office-tag">Google Workspace</span>
@@ -1219,7 +1218,7 @@
   </div>
 </section>
 
-<!-- Requirements Section -->
+<!-- System Requirements Section -->
 <section class="requirements-section" id="requirements">
   <div class="container">
     <div class="section-tag">System Scope & Readiness</div>
@@ -1235,7 +1234,7 @@
           <div class="req-tag">Current Release · Mac Only</div>
           <h4>Apple Hardware</h4>
           <ul>
-            <li><strong>Supported computers:</strong> MacBook Pro, MacBook Air, iMac, Mac mini, Mac Studio, and Mac Pro.</li>
+            <li><strong>Supported computers:</strong> MacBook Pro, MacBook Air, iMac, Mac mini, Mac Studio, and Mac Pro laptops and desktops.</li>
             <li><strong>Operating system:</strong> macOS Sonoma, macOS Ventura, or macOS Sequoia.</li>
             <li><strong>Desktop native:</strong> Runs quietly as a discreet menu bar tool with near-zero battery draw.</li>
           </ul>
@@ -1245,7 +1244,7 @@
       <!-- Requirement 2: Email Client & Inboxes -->
       <div class="req-card">
         <div>
-          <div class="req-tag">Mailing Client & Providers</div>
+          <div class="req-tag">Mailing Client & Inboxes</div>
           <h4>Client Integration</h4>
           <ul>
             <li><strong>Client requirement:</strong> Uses Apple's native mailing app built into your Mac.</li>
@@ -1466,7 +1465,7 @@
     </div>
 
     <div class="modal-body">
-      <!-- Request Access Tab (Configured for Notion Pipeline) -->
+      <!-- Request Access Tab -->
       <div id="viewRequest">
         <form onsubmit="handleRequestSubmit(event)">
           <div class="form-group">
@@ -1504,7 +1503,7 @@
         <div id="gateInputArea">
           <div class="form-group">
             <label for="gateCode">Beta Access Code</label>
-            <input type="text" id="gateCode" placeholder="Enter code" autocomplete="off" spellcheck="false" style="text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 16px;">
+            <input type="text" id="gateCode" placeholder="Enter code" autocomplete="off" spellcheck="false" style="text-align: center; font-size: 16px;">
           </div>
           <button type="button" class="btn-primary" style="width:100%; padding: 11px;" onclick="verifyCode()">Unlock Download</button>
           <p id="gateError" style="color: #991B1B; font-size: 13px; margin-top: 10px; display: none; text-align: center;">
