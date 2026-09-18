@@ -776,7 +776,7 @@
           <div class="tier-limits">Up to 100 drafts daily</div>
           <div class="tier-desc">For professionals managing a steady volume of priority correspondence.</div>
         </div>
-        <button class="btn-dark" onclick="openModal('request')">Request early access</button>
+        <button class="btn-dark" onclick="openCheckout(PADDLE_PRICE_PROFESSIONAL)">Subscribe - &pound;1/week</button>
       </div>
       <div class="pricing-card">
         <div>
@@ -786,7 +786,7 @@
           <div class="tier-limits">Unlimited daily drafting</div>
           <div class="tier-desc">Full coverage for leaders, researchers, and operators with continuous mail.</div>
         </div>
-        <button class="btn-dark" onclick="openModal('request')">Request early access</button>
+        <button class="btn-dark" onclick="openCheckout(PADDLE_PRICE_BUSINESS)">Subscribe - &pound;2/week</button>
       </div>
     </div>
     <p style="text-align:center; font-size:13px; color:var(--slate); margin-top:36px;">Downgrade or cancel anytime. You always fall back to Essential, never to nothing.</p>
@@ -918,6 +918,7 @@
   </div>
 </div>
 
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
   const ACCESS_CODE = "MailPuckHelper";
@@ -927,6 +928,34 @@
 
   const SUPABASE_URL = "https://oksjdgduuaksrmeaahqc.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rc2pkZ2R1dWFrc3JtZWFhaHFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3MzA4OTAsImV4cCI6MjEwNTMwNjg5MH0.VY7YuWZFif1YP70EoM4hEMssD_410lzfPWclr6_mMiQ";
+
+  // Paddle: real price IDs, confirmed by Kunal.
+  const PADDLE_PRICE_PROFESSIONAL = "pri_01m2ne07csk6e0hvysyd8wvgja";
+  const PADDLE_PRICE_BUSINESS = "pri_01m2ne5b16ncpay9ed0f1r7kkc";
+  // TODO (Kunal): paste your real Paddle client-side token here.
+  // Paddle dashboard -> Developer Tools -> Authentication -> Client-side tokens.
+  // This is a PUBLIC token, safe to expose in frontend code - it is NOT your
+  // secret API key. Starts with "live_" (or "test_" in sandbox mode).
+  const PADDLE_CLIENT_TOKEN = "live_79569e6f4285f1c2d97c8c5f515";
+
+  let paddleReady = false;
+  try {
+    if (window.Paddle && !PADDLE_CLIENT_TOKEN.includes("YOUR_PADDLE")) {
+      Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+      paddleReady = true;
+    }
+  } catch (err) { /* Paddle not configured yet */ }
+
+  // Opens Paddle's real checkout overlay for a given price. Falls back to
+  // the signup modal (with an honest note) if the client token has not
+  // been filled in yet, so this never just does nothing on click.
+  function openCheckout(priceId) {
+    if (!paddleReady) {
+      alert("Checkout isn\'t fully switched on yet. Please check back shortly, or use \'Request early access\' below.");
+      return;
+    }
+    Paddle.Checkout.open({ items: [{ priceId: priceId, quantity: 1 }] });
+  }
 
   let sb = null;
   try {
